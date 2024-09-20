@@ -1,0 +1,5 @@
+[20/Sep/2024 15:58:14] ERROR [platform_admin_views:89] {'permission': [ErrorDetail(string='"PermissionEnums.VIEWER" is not a valid choice.', code='invalid_choice')], 'user': [ErrorDetail(string='“invalid_user_id” is not a valid UUID.', code='invalid')]}
+[20/Sep/2024 15:58:14] ERROR [platform_admin_views:89] {'permission': [ErrorDetail(string='"PermissionEnums.VIEWER" is not a valid choice.', code='invalid_choice')], 'account': [ErrorDetail(string='This field is required.', code='required')]}
+[20/Sep/2024 15:58:15] ERROR [platform_admin_views:89] {'permission': [ErrorDetail(string='"PermissionEnums.VIEWER" is not a valid choice.', code='invalid_choice')]}
+[20/Sep/2024 16:00:07] ERROR [platform_admin_views:89] {'user': [ErrorDetail(string='“invalid_user_id” is not a valid UUID.', code='invalid')]}
+[20/Sep/2024 16:00:07] ERROR [platform_admin_views:89] {'account': [ErrorDetail(string='This field is required.', code='required')]}

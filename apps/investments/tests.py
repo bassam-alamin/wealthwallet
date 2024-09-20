@@ -97,6 +97,35 @@ class UserViewSetTest(APITestCase):
             status="successful",
             account=self.account_3
         )
-        url = reverse('transactions-retrieve',kwargs={"id": str(self.transaction.id)})
+        url = reverse('transactions-retrieve', kwargs={"id": str(self.transaction.id)})
         response = self.client.get(path=url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_account_2_view_success(self):
+        url = reverse('investment-account-cms', kwargs={'id': self.account_2.id})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_account_2_post_transaction_success(self):
+        url = reverse('transactions-create')
+        data = {
+            "amount": random.randint(100, 1000),
+            "currency": "USD",
+            "transaction_reference": f"{uuid.uuid4()}",
+            "transaction_type": "deposit",
+            "status": "successful",
+            "account": f"{self.account_2.id}"
+        }
+        response = self.client.post(path=url, data=data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_account_2_partial_update_success(self):
+        url = reverse('investment-account-cms', kwargs={'id': self.account_2.id})
+        data = {
+            "amount": random.randint(100, 1000)
+        }
+        response = self.client.patch(path=url, data=data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+

@@ -3,6 +3,7 @@ from django.db.models import Sum, Case, When, F
 from django.utils.dateparse import parse_date
 from knox.auth import TokenAuthentication
 from rest_framework import viewsets, status
+from rest_framework.exceptions import APIException
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -23,11 +24,12 @@ class AdminTransactionViewSet(viewsets.ViewSet):
         try:
             start_date = request.query_params.get('start_date')
             end_date = request.query_params.get('end_date')
-
             if start_date:
                 start_date = parse_date(start_date)
             if end_date:
                 end_date = parse_date(end_date)
+            if start_date and end_date and start_date > end_date:
+                return APIException("Start date cannot be after end date.")
 
             transactions = Transaction.objects.filter(
                 user_id=user_id,

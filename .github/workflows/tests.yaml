@@ -15,6 +15,13 @@ jobs:
     strategy:
       matrix:
         python-version: [3.11]
+        include:
+          - primary_db: test_db
+          - primary_db_user: postgres
+          - primary_db_user_password: postgres
+          - primary_db_host: localhost
+          - primary_db_port: 5432
+          - db_port: 5432
 
     services:
       postgres:
@@ -56,24 +63,24 @@ jobs:
         env:
           SETTINGS: ${{ secrets.SETTINGS }}
           SECURITY_KEY: ${{ secrets.SECURITY_KEY }}
-          PRIMARY_DB: test_db
-          PRIMARY_DB_USER: postgres
-          PRIMARY_DB_USER_PASSWORD: postgres
-          PRIMARY_DB_HOST: localhost
-          PRIMARY_DB_PORT: 5432
-          DB_PORT: 5432
+          PRIMARY_DB: ${{ matrix.primary_db }}
+          PRIMARY_DB_USER: ${{ matrix.primary_db_user }}
+          PRIMARY_DB_USER_PASSWORD: ${{ matrix.primary_db_user_password }}
+          PRIMARY_DB_HOST: ${{ matrix.primary_db_host }}
+          PRIMARY_DB_PORT: ${{ matrix.primary_db_port }}
+          DB_PORT: ${{ matrix.db_port }}
         run: python manage.py migrate
 
       - name: Run tests with coverage
         env:
           SETTINGS: ${{ secrets.SETTINGS }}
           SECURITY_KEY: ${{ secrets.SECURITY_KEY }}
-          PRIMARY_DB: test_db
-          PRIMARY_DB_USER: postgres
-          PRIMARY_DB_USER_PASSWORD: postgres
-          PRIMARY_DB_HOST: localhost
-          PRIMARY_DB_PORT: 5432
-          DB_PORT: 5432
+          PRIMARY_DB: ${{ matrix.primary_db }}
+          PRIMARY_DB_USER: ${{ matrix.primary_db_user }}
+          PRIMARY_DB_USER_PASSWORD: ${{ matrix.primary_db_user_password }}
+          PRIMARY_DB_HOST: ${{ matrix.primary_db_host }}
+          PRIMARY_DB_PORT: ${{ matrix.primary_db_port }}
+          DB_PORT: ${{ matrix.db_port }}
         run: python manage.py test
 #          pip install coverage  # Install coverage
 #          coverage run manage.py test  # Run tests and collect coverage data

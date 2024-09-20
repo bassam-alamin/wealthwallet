@@ -54,6 +54,8 @@ jobs:
 
       - name: Apply migrations
         env:
+          SETTINGS: ${{ secrets.SETTINGS }}
+          SECURITY_KEY: ${{ secrets.SECURITY_KEY }}
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
         run: python manage.py migrate
 

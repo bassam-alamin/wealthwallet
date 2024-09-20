@@ -1,3 +1,4 @@
+import logging
 from django.contrib.auth import get_user_model
 from knox.auth import TokenAuthentication
 from rest_framework import viewsets, status
@@ -12,6 +13,9 @@ from .models import InvestmentAccount, Transaction
 from .serializers import InvestmentAccountSerializer, TransactionSerializer
 
 User = get_user_model()
+
+logging = logging.getLogger('investment_views')
+
 
 
 class InvestmentAccountViewSet(AccessViewSetMixin, viewsets.ViewSet):
@@ -34,7 +38,7 @@ class InvestmentAccountViewSet(AccessViewSetMixin, viewsets.ViewSet):
                 status=status.HTTP_200_OK
             )
         except Exception as error:
-            print(error)
+            logging.error(error)
             return Response(
                 {
                     "message": "Problem retrieving account details",
@@ -55,7 +59,7 @@ class InvestmentAccountViewSet(AccessViewSetMixin, viewsets.ViewSet):
                 status=status.HTTP_201_CREATED
             )
         except Exception as error:
-            print(error)
+            logging.error(error)
             return Response(
                 {
                     "message": "Problem creating account",
@@ -75,7 +79,7 @@ class InvestmentAccountViewSet(AccessViewSetMixin, viewsets.ViewSet):
                 status=status.HTTP_201_CREATED
             )
         except Exception as error:
-            print(error)
+            logging.error(error)
             return Response(
                 {
                     "message": "Problem updating account",
@@ -95,7 +99,7 @@ class InvestmentAccountViewSet(AccessViewSetMixin, viewsets.ViewSet):
                 status=status.HTTP_201_CREATED
             )
         except Exception as error:
-            print(error)
+            logging.error(error)
             return Response(
                 {
                     "message": "Problem updating account",
@@ -116,7 +120,7 @@ class InvestmentAccountViewSet(AccessViewSetMixin, viewsets.ViewSet):
             )
 
         except Exception as error:
-            print(error)
+            logging.error(error)
             return Response(
                 {
                     "message": "Problem updating account",
@@ -145,7 +149,7 @@ class TransactionViewSet(AccessViewSetMixin, viewsets.ViewSet):
                 serializer.data
             )
         except Exception as error:
-            print(error)
+            logging.error(error)
             return Response(
                 {
                     "message": "Problem retrieving transactions",
@@ -166,7 +170,7 @@ class TransactionViewSet(AccessViewSetMixin, viewsets.ViewSet):
                 status=status.HTTP_201_CREATED
             )
         except Exception as error:
-            print(error)
+            logging.error(error)
             return Response(
                 {
                     "message": "Problem Creating transactions",

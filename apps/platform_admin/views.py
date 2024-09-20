@@ -1,3 +1,4 @@
+import logging
 from django.db.models import Sum, Case, When, F
 from django.utils.dateparse import parse_date
 from knox.auth import TokenAuthentication
@@ -8,6 +9,8 @@ from rest_framework.views import APIView
 from apps.investments.models import Transaction
 from apps.investments.serializers import (TransactionSerializer,
                                           InvestmentAccountMembershipSerializer)
+
+logging = logging.getLogger('platform_admin_views')
 
 
 class AdminTransactionViewSet(viewsets.ViewSet):
@@ -52,7 +55,7 @@ class AdminTransactionViewSet(viewsets.ViewSet):
                 "total_balance": total_balance
             })
         except Exception as error:
-            print(error)
+            logging.error(error)
             return Response(
                 {
                     "message": "Problem retrieving transactions",
@@ -81,6 +84,7 @@ class AddUserToAccountView(APIView):
                 status=status.HTTP_201_CREATED
             )
         except Exception as e:
+            logging.error(e)
             return Response(
                 {"detail": f"An error occurred: {str(e)}"},
                 status=status.HTTP_400_BAD_REQUEST

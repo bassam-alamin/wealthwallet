@@ -34,8 +34,6 @@ To view Api endpoints:
 On Your browser enter
  [127.0.0.1:8000/developer/docs](http://127.0.0.1:8000/developer/docs)
 
- 
-<img width="1367" alt="Screenshot 2024-07-17 at 01 56 15" src="https://github.com/user-attachments/assets/17007873-06af-4955-9fcb-8cf447fbdd4b">
 
 To run tests:
     ```python manage.py test```

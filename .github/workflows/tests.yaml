@@ -16,8 +16,6 @@ jobs:
       matrix:
         python-version: [3.11]
         include:
-          - settings: ${{ secrets.SETTINGS }}
-          - security_key: ${{ secrets.SECURITY_KEY }}
           - primary_db: test_db
           - primary_db_user: postgres
           - primary_db_user_password: postgres
@@ -63,8 +61,8 @@ jobs:
 
       - name: Apply migrations
         env:
-          SETTINGS: ${{ matrix.settings }}
-          SECURITY_KEY: ${{ matrix.security_key }}
+          SETTINGS: ${{ secrets.SETTINGS }}
+          SECURITY_KEY: ${{ secrets.SECURITY_KEY }}
           PRIMARY_DB: ${{ matrix.primary_db }}
           PRIMARY_DB_USER: ${{ matrix.primary_db_user }}
           PRIMARY_DB_USER_PASSWORD: ${{ matrix.primary_db_user_password }}
@@ -75,8 +73,8 @@ jobs:
 
       - name: Run tests with coverage
         env:
-          SETTINGS: ${{ matrix.settings }}
-          SECURITY_KEY: ${{ matrix.security_key }}
+          SETTINGS: ${{ secrets.SETTINGS }}
+          SECURITY_KEY: ${{ secrets.SECURITY_KEY }}
           PRIMARY_DB: ${{ matrix.primary_db }}
           PRIMARY_DB_USER: ${{ matrix.primary_db_user }}
           PRIMARY_DB_USER_PASSWORD: ${{ matrix.primary_db_user_password }}

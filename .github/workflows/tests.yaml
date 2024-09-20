@@ -56,7 +56,12 @@ jobs:
         env:
           SETTINGS: ${{ secrets.SETTINGS }}
           SECURITY_KEY: ${{ secrets.SECURITY_KEY }}
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+          PRIMARY_DB: test_db
+          PRIMARY_DB_USER: postgres
+          PRIMARY_DB_USER_PASSWORD: postgres
+          PRIMARY_DB_HOST: localhost
+          PRIMARY_DB_PORT: 5432
+          DB_PORT: 5432
         run: python manage.py migrate
 
       - name: Run tests with coverage

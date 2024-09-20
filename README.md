@@ -53,7 +53,7 @@ To view Api endpoints:
 On Your browser enter to view swagger documentation.
  [127.0.0.1:8000/developer/docs](http://127.0.0.1:8000/developer/docs)
 
-![](/Users/bassam/Desktop/Screenshot 2024-09-20 at 15.04.53.png)
+![Screenshot 2024-09-20 at 15 04 53](https://github.com/user-attachments/assets/1ea6c221-db84-402f-af18-2dd17836bb38)
 
 To run tests:
     ```python manage.py test```
@@ -62,9 +62,13 @@ Or run specific app tests:
     ```python manage.py test app_name```
 
 
-HOW TO TEST STEP-BY-STEP:
+## How To Test Step-By-Step:
 
-ADMIN:
+### ADMIN:
 
-1. Open terminal on root folder and create superuser (This is the user that will be able to view Transactions and Link accounts to users)
-    ``` python manage.py createsuperuser```
+1. **Create a Superuser**
+   
+   Open your terminal in the project’s root folder and create a superuser. This user will have access to view transactions and link accounts to specific users.
+
+   ```bash
+   python manage.py createsuperuser

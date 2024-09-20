@@ -21,12 +21,12 @@ public_apis = [
 
 schema_view = get_schema_view(
     openapi.Info(
-        title=config("API_TITLE"),
-        default_version=config("VERSION"),
+        title=config("API_TITLE", "Wealthwallet API's"),
+        default_version=config("VERSION", "1.0"),
         description="These are the main APIs for Wealth Wallet App",
-        terms_of_service=config("TnCS_URL"),
+        terms_of_service=config("TnCS_URL", "https://example.com"),
         x_logo={
-            "url": config("LOGO_URL"),
+            "url": config("LOGO_URL", "https://example.com"),
             "backgroundColor": "#FFFFFF"
         }
     ),
@@ -51,6 +51,6 @@ urlpatterns += public_apis
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-admin.site.site_header = config('ADMIN_SITE_HEADER')
-admin.site.site_title = config('ADMIN_SITE_TITLE')
-admin.site.index_title = config('ADMIN_SITE_INDEX_TITLE')
+admin.site.site_header = config('ADMIN_SITE_HEADER', "Wealth Wallet Admin")
+admin.site.site_title = config('ADMIN_SITE_TITLE', "Wealth Wallet Admin")
+admin.site.index_title = config('ADMIN_SITE_INDEX_TITLE', "Wealth Wallet Admin")

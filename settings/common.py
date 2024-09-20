@@ -217,26 +217,9 @@ MEDIA_URL = '/media/'
 SILKY_PYTHON_PROFILER = True
 SITE_ID = 1
 
-# QUEUING_AUTOMATION_DETAILS_WITH_CELERY
-CELERY_BROKER_URL = config('BROKER_URL')
-CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND')
-CELERY_ACCEPT_CONTENT = ["pickle", config('CELERY_ACCEPT_CONTENT')]
-CELERY_TASK_SERIALIZER = config('CELERY_SERIALIZER')
-CELERY_RESULT_SERIALIZER = config('CELERY_SERIALIZER')
-CELERY_BEAT_SCHEDULER = config('CELERY_BEAT_SCHEDULER')
-CELERY_TIMEZONE = config('CELERY_TIMEZONE')
-CELERY_BEAT_SCHEDULE = {
-    'generate-weekly-reports': {
-        'task': 'booking.tasks.generate_weekly_report',
-        'schedule': crontab(
-            hour="0", minute="0",
-            day_of_week='monday'),
-    }
-}
-
 # ENVIRONMENT CONFIGURATION
-ENVIRONMENT_NAME = config('ENVIRONMENT_NAME')
-ENVIRONMENT_COLOR = config('ENVIRONMENT_COLOR')
+ENVIRONMENT_NAME = config('ENVIRONMENT_NAME', "localhost")
+ENVIRONMENT_COLOR = config('ENVIRONMENT_COLOR', "green")
 
 # MESSAGING CONFIGURATION
 
@@ -347,10 +330,10 @@ FCM_DJANGO_SETTINGS = {
 
 CACHES = {
     "default": {
-        "BACKEND": config("REDIS_BACKEND"),
-        "LOCATION": config("REDIS_DB_LOCATION"),
+        "BACKEND": config("REDIS_BACKEND", "django_redis.cache.RedisCache"),
+        "LOCATION": config("REDIS_DB_LOCATION", "redis://127.0.0.1:6379/1"),
         "OPTIONS": {
-            "CLIENT_CLASS": config("REDIS_CLIENT_CLASS")
+            "CLIENT_CLASS": config("REDIS_CLIENT_CLASS", "django_redis.client.DefaultClient")
         },
         "KEY_PREFIX": "development"
     }
@@ -365,12 +348,3 @@ REST_KNOX = {
     'AUTO_REFRESH': False,
     'EXPIRY_DATETIME_FORMAT': api_settings.DATETIME_FORMAT,
 }
-
-# EMAIL CONFIGURATION
-EMAIL_BACKEND = config("EMAIL_BACKEND")
-EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_PORT = config("EMAIL_PORT")
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-SECURITY_EMAIL_SENDER = config('EMAIL_HOST_USER')
-EMAIL_USE_TLS = config("EMAIL_USE_TLS")

@@ -281,12 +281,17 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'booking_views': {
+        'investment_views': {
             'handlers': ['console', 'logfile', 'stdOut', 'stdErr'],
             'level': 'INFO',
             'propagate': True,
         },
         'auth_app_views': {
+            'handlers': ['console', 'logfile', 'stdOut', 'stdErr'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'platform_admin_views': {
             'handlers': ['console', 'logfile', 'stdOut', 'stdErr'],
             'level': 'INFO',
             'propagate': True,

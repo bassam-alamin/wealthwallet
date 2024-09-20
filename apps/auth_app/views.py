@@ -4,11 +4,15 @@ from drf_yasg.utils import swagger_auto_schema
 from knox.views import LoginView as KnoxLoginView
 from rest_framework import permissions, viewsets
 from rest_framework.response import Response
+import logging
 from rest_framework.throttling import UserRateThrottle
 from apps.auth_app.models import User
 from apps.auth_app.serializers import MetroAuthTokenSerializer, UserSerializer
 from rest_framework.permissions import IsAuthenticated
 from knox.auth import TokenAuthentication
+
+
+logging = logging.getLogger('auth_app_views')
 
 
 class LoginView(KnoxLoginView):

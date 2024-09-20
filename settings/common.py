@@ -218,8 +218,8 @@ SILKY_PYTHON_PROFILER = True
 SITE_ID = 1
 
 # ENVIRONMENT CONFIGURATION
-ENVIRONMENT_NAME = config('ENVIRONMENT_NAME')
-ENVIRONMENT_COLOR = config('ENVIRONMENT_COLOR')
+ENVIRONMENT_NAME = config('ENVIRONMENT_NAME', "localhost")
+ENVIRONMENT_COLOR = config('ENVIRONMENT_COLOR', "green")
 
 # MESSAGING CONFIGURATION
 
@@ -330,10 +330,10 @@ FCM_DJANGO_SETTINGS = {
 
 CACHES = {
     "default": {
-        "BACKEND": config("REDIS_BACKEND"),
-        "LOCATION": config("REDIS_DB_LOCATION"),
+        "BACKEND": config("REDIS_BACKEND", "django_redis.cache.RedisCache"),
+        "LOCATION": config("REDIS_DB_LOCATION", "redis://127.0.0.1:6379/1"),
         "OPTIONS": {
-            "CLIENT_CLASS": config("REDIS_CLIENT_CLASS")
+            "CLIENT_CLASS": config("REDIS_CLIENT_CLASS", "django_redis.client.DefaultClient")
         },
         "KEY_PREFIX": "development"
     }
@@ -348,12 +348,3 @@ REST_KNOX = {
     'AUTO_REFRESH': False,
     'EXPIRY_DATETIME_FORMAT': api_settings.DATETIME_FORMAT,
 }
-
-# EMAIL CONFIGURATION
-EMAIL_BACKEND = config("EMAIL_BACKEND")
-EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_PORT = config("EMAIL_PORT")
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-SECURITY_EMAIL_SENDER = config('EMAIL_HOST_USER')
-EMAIL_USE_TLS = config("EMAIL_USE_TLS")

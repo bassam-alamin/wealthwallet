@@ -217,23 +217,6 @@ MEDIA_URL = '/media/'
 SILKY_PYTHON_PROFILER = True
 SITE_ID = 1
 
-# QUEUING_AUTOMATION_DETAILS_WITH_CELERY
-CELERY_BROKER_URL = config('BROKER_URL')
-CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND')
-CELERY_ACCEPT_CONTENT = ["pickle", config('CELERY_ACCEPT_CONTENT')]
-CELERY_TASK_SERIALIZER = config('CELERY_SERIALIZER')
-CELERY_RESULT_SERIALIZER = config('CELERY_SERIALIZER')
-CELERY_BEAT_SCHEDULER = config('CELERY_BEAT_SCHEDULER')
-CELERY_TIMEZONE = config('CELERY_TIMEZONE')
-CELERY_BEAT_SCHEDULE = {
-    'generate-weekly-reports': {
-        'task': 'booking.tasks.generate_weekly_report',
-        'schedule': crontab(
-            hour="0", minute="0",
-            day_of_week='monday'),
-    }
-}
-
 # ENVIRONMENT CONFIGURATION
 ENVIRONMENT_NAME = config('ENVIRONMENT_NAME')
 ENVIRONMENT_COLOR = config('ENVIRONMENT_COLOR')

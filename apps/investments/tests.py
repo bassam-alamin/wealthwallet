@@ -2,13 +2,12 @@ import random
 import uuid
 
 from django.contrib.auth import get_user_model
-from django.core.cache import cache
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 from knox.models import AuthToken
 
-from apps.investments.models import InvestmentAccount, InvestmentAccountMembership, PermissionEnums
+from apps.investments.models import InvestmentAccount, InvestmentAccountMembership, PermissionEnums, Transaction
 
 User = get_user_model()
 
@@ -86,11 +85,18 @@ class UserViewSetTest(APITestCase):
             "account": f"{self.account_3.id}"
         }
         response = self.client.post(path=url, data=data)
-        cache.set("transaction_id", response.json().get("id"))
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIsInstance(response.data, dict)
 
     def test_account_3_view_deny(self):
-        url = reverse('transactions-retrieve',kwargs={"id": cache.get("transaction_id")} )
+        self.transaction = Transaction.objects.create(
+            amount=random.randint(100, 1000),
+            currency="USD",
+            transaction_reference=f"{uuid.uuid4()}",
+            transaction_type="deposit",
+            status="successful",
+            account=self.account_3
+        )
+        url = reverse('transactions-retrieve',kwargs={"id": str(self.transaction.id)})
         response = self.client.get(path=url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

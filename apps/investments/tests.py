@@ -2,6 +2,7 @@ import random
 import uuid
 
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -50,22 +51,18 @@ class UserViewSetTest(APITestCase):
             account=self.account_3,
             permission=PermissionEnums.POSTER
         )
-
-    def test_account_1_view_only(self):
         self.token = AuthToken.objects.create(
             user=self.user
         )
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + str(self.token[1]))
+
+    def test_account_1_view_only_success(self):
         url = reverse('investment-account-cms', kwargs={'id': self.account_1.id})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsInstance(response.data, dict)
 
-    def test_account_1_post(self):
-        self.token = AuthToken.objects.create(
-            user=self.user
-        )
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + str(self.token[1]))
+    def test_account_1_post_deny(self):
         url = reverse('transactions-create')
         data = {
             "amount": random.randint(100, 1000),
@@ -75,5 +72,25 @@ class UserViewSetTest(APITestCase):
             "status": "successful",
             "account": f"{self.account_1.id}"
         }
-        response = self.client.post(path=url, json=data)
+        response = self.client.post(path=url, data=data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_account_3_post_transaction_only_success(self):
+        url = reverse('transactions-create')
+        data = {
+            "amount": random.randint(100, 1000),
+            "currency": "USD",
+            "transaction_reference": f"{uuid.uuid4()}",
+            "transaction_type": "deposit",
+            "status": "successful",
+            "account": f"{self.account_3.id}"
+        }
+        response = self.client.post(path=url, data=data)
+        cache.set("transaction_id", response.json().get("id"))
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIsInstance(response.data, dict)
+
+    def test_account_3_view_deny(self):
+        url = reverse('transactions-retrieve',kwargs={"id": cache.get("transaction_id")} )
+        response = self.client.get(path=url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

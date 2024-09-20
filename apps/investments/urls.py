@@ -26,5 +26,5 @@ urlpatterns = [
         {
             "get": "retrieve"
         }
-    ), name='transactions-cms')
+    ), name='transactions-retrieve')
 ]

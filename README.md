@@ -8,7 +8,7 @@ PYTHON 3.11
 Prerequisites:
 1. Make sure you have postgresql and redis installed on your machine
 
-2. Create a database that you will replace it on the .env
+2. Create a database that you will copy name and user to replace on the .env
 
 How To Run:
 1. Download all requirements from the requirements.txt file
@@ -31,8 +31,10 @@ How To Run:
 
 
 To view Api endpoints:
-On Your browser enter
+On Your browser enter to view swagger documentation.
  [127.0.0.1:8000/developer/docs](http://127.0.0.1:8000/developer/docs)
+
+![Screenshot 2024-09-20 at 15.04.53.png](..%2F..%2FScreenshot%202024-09-20%20at%2015.04.53.png)
 
 
 To run tests:
@@ -46,5 +48,5 @@ HOW TO TEST STEP-BY-STEP:
 
 ADMIN:
 
-1. Open terminal on root folder and create superuser (This is the user that will be able to create Theatres and Seatings)
+1. Open terminal on root folder and create superuser (This is the user that will be able to view Transactions and Link accounts to users)
     ``` python manage.py createsuperuser```

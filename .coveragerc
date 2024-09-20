@@ -3,7 +3,8 @@ source = apps
 
 [report]
 omit =
-    apps/booking/tests.py
+    apps/auth_app/tests.py
+    apps/investments/tests.py
     manage.py
     */migrations/*
     */tests/*

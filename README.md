@@ -6,9 +6,9 @@ VERSIONS:
 PYTHON 3.11
 
 Prerequisites:
-1. Make sure you have postgresql and redis installed on your machine
+1. Make sure you have PostgreSQL and Redis installed on your machine
 
-2. Create a database that you will copy name and user to replace on the .env
+2. Create a database that you will copy the name and user to replace on the .env
 
 How To Run:
 
@@ -33,7 +33,7 @@ How To Run:
     pip install -r requirements.txt
     ```
 
-4. **Copy contents of `.env.example` to your `.env` file and replace with the respective details**
+4. **Copy contents of `.env.example` to your `.env` file and replace them with the respective details**
     ```bash
     cp .env.example .env
     ```
@@ -49,7 +49,7 @@ How To Run:
     ```
 
 
-To view Api endpoints:
+To view API endpoints:
 On Your browser enter to view swagger documentation.
  [127.0.0.1:8000/developer/docs](http://127.0.0.1:8000/developer/docs)
 
@@ -68,7 +68,22 @@ Or run specific app tests:
 
 1. **Create a Superuser**
    
-   Open your terminal in the project’s root folder and create a superuser. This user will have access to view transactions and link accounts to specific users.
+   Open your terminal in the project’s root folder and create a superuser. This user can view transactions and link accounts to specific users.
 
    ```bash
    python manage.py createsuperuser
+
+2. **Obtain Token as SuperUSer**
+   
+   Open Postman, and use the login credentials entered above to obtain the token. Just so you know, all logins would only work on Postman since Swagger is currently blocked by the Authentication library currently being used.
+
+   <img width="908" alt="Screenshot 2024-09-20 at 15 24 37" src="https://github.com/user-attachments/assets/9c3fc7b6-fbe3-4d52-a693-e315c5c12396">
+
+3. **Attach Token to continue using swagger**
+   
+   Go to the swagger docs and paste the token with the prefix "token XXXXXXXXXXXXXXX".
+
+  ![Screenshot 2024-09-20 at 15 27 27](https://github.com/user-attachments/assets/bee7b8a6-c3de-4732-9344-747aa5a4d89d)
+
+
+

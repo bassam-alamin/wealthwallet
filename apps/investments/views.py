@@ -96,7 +96,7 @@ class InvestmentAccountViewSet(AccessViewSetMixin, viewsets.ViewSet):
             serializer.save()
             return Response(
                 serializer.data,
-                status=status.HTTP_201_CREATED
+                status=status.HTTP_200_OK
             )
         except Exception as error:
             logging.error(error)
